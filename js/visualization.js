@@ -1,7 +1,6 @@
-// Immediately Invoked Function Expression to limit access to our 
-// variables and prevent 
-((() => {
-
-  console.log('Hello, world!');
-
-})());
+import geoMap from "./geoMap.js";
+// Immediately Invoked Function Expression to limit access to our
+// variables and prevent
+(() => {
+  geoMap();
+})();
