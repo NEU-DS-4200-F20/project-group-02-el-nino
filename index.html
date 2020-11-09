@@ -20,6 +20,9 @@
   <meta name='msapplication-TileColor' content='#da532c'>
   <meta name='msapplication-config' content='favicons/browserconfig.xml'>
   <meta name='theme-color' content='#ffffff'>
+
+  <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+  
 </head>
 
 <!-- Main page content -->
@@ -95,6 +98,18 @@
         by Chris Heilmann is used to create the banner that links back to the source code repository.
       </li>
       <li>Samuel Muñoz and Sylvia Dee. El Niño increases the risk of lower Mississippi River flooding. Sci Rep 7, 1772 (2017). <a href="https://doi.org/10.1038/s41598-017-01919-6">doi: 10.1038/s41598-017-01919-6</a></li>
+      <li><a href='https://observablehq.com/@d3/web-mercator-tiles'>
+        Web Mercator Tiles</a>
+        by Mike Bostock is used to create the map using topojson.
+      </li>
+      <li><a href='https://bl.ocks.org/HarryStevens/6eb89487fc99ad016723b901cbd57fde'>
+        Gradient Legend</a>
+        by Harry Stevens is used to guide color gradient legend creation.
+      </li>
+      <li><a href='https://observablehq.com/@d3/d3v6-migration-guide#event_zoom'>
+        D3 6.0 migration guide</a>
+        by Fil is used to identify d3v6 functions for map zooming and panning.
+      </li>
     </ul>
   </div>
 
@@ -102,7 +117,7 @@
   
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src='lib/d3.v6.1.1/d3.min.js'></script>
-  <script src='js/geoMap.js' type='module'></script>
-  <script src='js/visualization.js' type='module'></script>
+  <script src='js/geoMap.js'></script>
+  <script src='js/visualization.js'></script>
 </body>
 </html>
