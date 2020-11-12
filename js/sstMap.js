@@ -1,22 +1,52 @@
-function geoMap() {
+// function to create sst map
+function sstMap() {
+
+  // create svg for later appending
   const svg = d3.select("#vis-svg-1");
   // .on("click", reset);
   const g = svg.append("g").attr("id", "map");
 
-  const projection = d3.geoMercator().center([0, 0]).rotate([180, 0, 0]);
+  // create projection 
+  //const projection = d3.geoMercator().center([0, 0]).rotate([180, 0, 0]);
+  const projection = d3.geoEquirectangular().rotate([180, 0, 0]);
 
-  // append lat-long points w/ linear gradient colot channel for sst val based on projection
+  // create tooltip div
+  var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+  // append lat-long points w/ linear gradient color channel for sst val based on projection
   d3.csv("data/sst_small.csv").then(function (data) {
+
+    // get max and min of variable for scaling purposes
+    //var varMax = d3.max(data, d => d.sst);
+    //var varMin = d3.min(data, d => d.sst);
+    //console.log(varMax)
+    //console.log(varMin)
+    
+    // color scale function
     const myColor = d3.scaleLinear().domain([-2, 32]).range(["white", "blue"]);
-    g.selectAll("circle")
+
+    // add squares to map and apply tooltip behavior
+    g.selectAll("rect")
       .data(data)
       .enter()
-      .append("circle")
-      .attr("cx", d => projection([d.longitude, d.latitude])[0])
-      .attr("cy", d => projection([d.longitude, d.latitude])[1])
-      .attr("r", 5)
-      .attr("fill", d => myColor(d.sst));
-    // append path for global land
+      .append("rect")
+      .attr("x", d => projection([d.longitude, d.latitude])[0])
+      .attr("y", d => projection([d.longitude, d.latitude])[1])
+      .attr("width", 5.6)
+      .attr("height", 5.6)
+      .attr("fill", d => myColor(d.sst))
+      .on("click", function(event, d) {
+        div.transition()
+          .duration(20)
+          .style("opacity", .9);
+        div.html("Lat: " + d.latitude + "<br/>" + "Lon: " + d.longitude + "<br/>" + "SST: " + parseFloat(d.sst).toFixed(2))
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY - 28) + "px");
+      });
+
+    // append path for global land projection
     d3.json("../data/land-50m.json").then(topology => {
       const land = topojson.feature(topology, topology.objects.land);
       const path = d3.geoPath(projection)(land);
@@ -25,6 +55,7 @@ function geoMap() {
     });
   });
 
+  // create legend
   const createLegend = () => {
     const legend = [
         { color: "white", value: -2 },
