@@ -42,6 +42,11 @@ h1, h2, h3 {
   background-color: #f4f1f0;
 }
 
+.area {
+	fill: url(#area-gradient);
+	stroke-width: 05px;
+}
+
 /* Tooltip formatting */
 div.tooltip {
 	position: absolute;

@@ -63,10 +63,21 @@
 
     <!-- Change viewbox to whatever you want, e.g., '0 0 1000 6000' This determines your aspect ratio and coordinate system     -->
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
+<<<<<<< HEAD
     <!--<svg id='vis-svg-1'  preserveAspectRatio='xMidYMid meet' class='vis-svg' viewBox='0 0 1000 1000' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>  -->
     <!-- Don't delete the closing tag! -->
     <!-- </svg> -->
   </div> 
+=======
+    <svg id='vis-svg-1'  preserveAspectRatio='xMidYMid meet' class='vis-svg' viewBox='0 0 1000 1000' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+      <!-- Don't delete the closing tag! -->
+    </svg>
+
+    <div class='linechart-holder' id='linechart'></div>
+    <div class='onichart-holder' id='onichart'></div>
+
+  </div>
+>>>>>>> 638870762dc3e3bceba97d859ba8b5e29b9b299f
   
   <!-- Further writeup -->
   <div class = 'content-column'>
@@ -109,6 +120,10 @@
         Gradient Legend</a>
         by Harry Stevens is used to guide color gradient legend creation.
       </li>
+      <li><a href='https://bl.ocks.org/d3noob/4433087'>
+        Area Gradient fill</a>
+        by d3noob is used to help creating a gradient area chart. 
+      </li>
       <li><a href='https://observablehq.com/@d3/d3v6-migration-guide#event_zoom'>
         D3 6.0 migration guide</a>
         by Fil is used to identify d3v6 functions for map zooming and panning.
@@ -123,6 +138,8 @@
   <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
   <script src='js/sstMap.js'></script>
   <script src='js/mrbMap.js'></script>
+  <script src='js/linechart.js'></script>
+  <script src='js/onichart.js'></script>
   <script src='js/visualization.js'></script>
 </body>
 </html>
