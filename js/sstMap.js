@@ -3,11 +3,9 @@ function sstMap() {
 
   // create svg for later appending
   const svg = d3.select("#vis-svg-1");
-  // .on("click", reset);
   const g = svg.append("g").attr("id", "map");
 
   // create projection 
-  //const projection = d3.geoMercator().center([0, 0]).rotate([180, 0, 0]);
   const projection = d3.geoEquirectangular().rotate([180, 0, 0]);
 
   // create tooltip div
@@ -18,12 +16,6 @@ function sstMap() {
   // append lat-long points w/ linear gradient color channel for sst val based on projection
   d3.csv("data/sst_small.csv").then(function (data) {
 
-    // get max and min of variable for scaling purposes
-    //var varMax = d3.max(data, d => d.sst);
-    //var varMin = d3.min(data, d => d.sst);
-    //console.log(varMax)
-    //console.log(varMin)
-    
     // color scale function
     const myColor = d3.scaleLinear().domain([-2, 32]).range(["white", "blue"]);
 
