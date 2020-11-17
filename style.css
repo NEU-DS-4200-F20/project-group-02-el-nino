@@ -19,17 +19,39 @@ h1, h2, h3 {
 .vis-holder {
   width: 100%;
   height: 100%;
+  /* display: flex; */
 }
+
+
+.mrbLineChart-holder {
+	flex: 0 0 50%;
+}
+  
+
+.mrbMap-holder {
+	flex: 1;
+}
+
+
+
+
+
+
 
 .vis-svg {
   background-color: #f4f1f0;
+}
+
+.area {
+	fill: url(#area-gradient);
+	stroke-width: 05px;
 }
 
 /* Tooltip formatting */
 div.tooltip {
 	position: absolute;
 	text-align: center;
-	width: 80px;
+	width: 100px;
 	height: 40px;
 	padding: 2px;
 	font: 12px sans-serif;
