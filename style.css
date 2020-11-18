@@ -22,6 +22,16 @@ h1, h2, h3 {
   /* display: flex; */
 }
 
+/* The line chart will take the left half of the screen */
+.linechart-holder {
+	flex: 0 0 50%;
+  }
+  
+/* The scatterplot will take the right half of the screen */
+  .onichart-holder {
+	flex: 1;
+}
+
 
 .mrbLineChart-holder {
 	flex: 0 0 50%;
