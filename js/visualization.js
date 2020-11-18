@@ -23,8 +23,11 @@
   const mrbViz = mrbMap("precip", geometricLandData, currentPrecipData, null);
   const mrbLineChart = lineChart("discharge");
   const oniLineChart = oni();
-  // const soilLineChart = lineChart("soil");
-  // const precipLineChart = lineChart("precip");
+
+  //Need to implement button to switch these charts. For now to see these,
+  //comment out mrbLineChart and uncomment one of these.
+  //const soilLineChart = lineChart("soil");
+  //const precipLineChart = lineChart("precip");
 
   // dispatch time chage events
   timeSeriesSlider.timeDispatcher().on(dispatchString, timeValue => {

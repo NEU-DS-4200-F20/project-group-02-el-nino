@@ -9,9 +9,9 @@ function oni() {
         let width  = 1200;
         let height = 600;
         let margin = {
-            top: 30,
-            bottom: 30,
-            left: 70,
+            top: 50,
+            bottom: 50,
+            left: 100,
             right: 100
         };
         let ourBrush = null,
@@ -39,12 +39,38 @@ function oni() {
             .attr('class', 'x axis')
             .attr('transform', 'translate(0, ' + (height - margin.bottom - margin.top) + ')')
             .call(xAxis);
+        
+        //x axis label
+        svg.append("text")             
+        .attr("transform",
+                "translate(" + ((width/2) - margin.right) + " ," + 
+                (height - margin.bottom - 7) + ")")
+        .style("text-anchor", "middle")
+        .text("Date");
+        
     
         let yAxis = d3.axisLeft(yScale);
         svg.append('g')
             .attr('class', 'y axis')
             .attr('transform', 'translate(0, 0)')
             .call(yAxis);
+
+        // text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Oceanic Niño Index (ONI)");
+
+        //title
+        svg.append("text")
+            .attr("x", (width/2 - margin.right))             
+            .attr("y", 0 - (margin.top / 2) + 5)
+            .attr("text-anchor", "middle")  
+            .style("font-size", "24px")   
+            .text("ONI Chart");
 
         let	area = d3.area()	
             .x(d => xScale(Date.parse(d.date)))
@@ -73,16 +99,16 @@ function oni() {
             .attr('class', 'area')
             .attr("d", area);
     
-    // Add the points
-    svg.selectAll("myCircles")
-    .data(data)
-    .enter()
-    .append("circle")
-      .attr("fill", "black")
-      .attr("stroke", "none")
-      .attr("cx", function(d) { return xScale(Date.parse(d.date)) })
-      .attr("cy", function(d) { return yScale(parseFloat(d.oni)) })
-      .attr("r", 2)
+        // Add the points
+        svg.selectAll("myCircles")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("fill", "black")
+            .attr("stroke", "none")
+            .attr("cx", function(d) { return xScale(Date.parse(d.date)) })
+            .attr("cy", function(d) { return yScale(parseFloat(d.oni)) })
+            .attr("r", 2)
 
       
 
