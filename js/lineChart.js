@@ -1,7 +1,6 @@
 var formatTime = d3.timeFormat("%Y - %m");
 
-
-
+//creates the linechart based on the passed in type
 function lineChart(condition) {
 
     switch (condition) {
