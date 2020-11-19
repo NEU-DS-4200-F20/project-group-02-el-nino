@@ -17,7 +17,7 @@ function timeSlider() {
         }));
 
         const svg = d3
-            .select("#vis-svg-1").append("g").attr("transform", "translate(0, 500)");
+            .select("#slider").append("g").attr("transform", "translate(0, 500)");
 
         const padding = 0.1;
 

@@ -26,7 +26,7 @@ function precip() {
         var minDate  = d3.min(data, function(d){return Date.parse(d.date); });
         var maxVar = d3.max(data, function(d){return parseFloat(d.precip)});
     
-        var width  = 1200;
+        var width  = 940;
         var height = 600;
         var margin = {
             top: 50,
@@ -126,7 +126,7 @@ function soil() {
         console.log(maxDate, minDate, maxVar);
 
     
-        var width  = 1200;
+        var width  = 940;
         var height = 600;
         var margin = {
             top: 30,
@@ -226,7 +226,7 @@ function discharge() {
     var minDate  = d3.min(data, function(d){return Date.parse(d.date); });
     var maxDischarge = d3.max(data, function(d){return parseInt(d.discharge)});
 
-    var width  = 1200;
+    var width  = 940;
     var height = 600;
     var margin = {
         top: 50,

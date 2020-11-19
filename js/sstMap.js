@@ -5,7 +5,13 @@ function sstMap() {
 
   function chart(geographicData, sstData) {
     // create svg for later appending
-    const svg = d3.select("#vis-svg-1");
+    const svg = d3.select("#sstMap")
+        .append('svg')
+        .attr('width' , 940)
+        .attr('height', 600)
+        .attr('viewBox', [0, 0, 900, 500].join(' '))
+        .classed('svg-content', true);
+
     // .on("click", reset);
     const g = svg.append("g").attr("id", "map");
 

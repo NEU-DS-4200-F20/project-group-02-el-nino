@@ -21,15 +21,17 @@
   <meta name='msapplication-config' content='favicons/browserconfig.xml'>
   <meta name='theme-color' content='#ffffff'>
 
+  <!-- Sourced packages -->
   <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
   <script src="https://unpkg.com/d3-simple-slider@1.10.2/dist/d3-simple-slider.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
   
 </head>
 
 <!-- Main page content -->
 <body>
 
-  <!-- Update this with your GitHub repo URL -->
+  <!-- GitHub repo URL -->
   <span id='forkongithub'><a href='https://github.com/NEU-DS-4200-F20/project-group-02-el-nino'>Fork me on GitHub</a></span>
 
   <!-- Writeup -->
@@ -39,36 +41,37 @@
     <p><strong>Logan Jones</strong>, <strong>Alexander Schad</strong>, <strong>Sina Soltanieh</strong></p>
     The El Niño Southern-Oscillation (ENSO) has long been known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen across the globe, with notable effects around the Mississippi River Basin (MRB). In 2017, Muñoz and Dee found that the warm phase of ENSO preconditions the MRB to flood vulnerability [1]. Given the economic costs associated with natural disasters in this heavily populated region, understanding the connection between ENSO and flooding is of paramount importance—visualizing this connection is the focus of this paper.
     <p>Service-Learning Course Project as part of
-	<a href='https://canvas.instructure.com/courses/1781732'>DS 4200 F20: Information Visualization</a>, 
-	taught by <a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>, 
-	<a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>, 
-	<a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.</p>
-    
+	    <a href='https://canvas.instructure.com/courses/1781732'>DS 4200 F20: Information Visualization</a>, 
+	    taught by <a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>, 
+	    <a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>, 
+      <a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.
+    </p>
     
     <h1>Abstract</h1>
     
     <p>The El Niño Southern-Oscillation (ENSO) has long been known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen across the globe, with notable effects around the Mississippi River Basin (MRB). In 2017, Muñoz and Dee found that the warm phase of ENSO preconditions the MRB to flood vulnerability [1]. Given the economic costs associated with natural disasters in this heavily populated region, understanding the connection between ENSO and flooding is of paramount importance—visualizing this connection is the focus of this paper.</p>
 
-    
     <h1>Visualization</h1>
-    
-    <p>Include the interactive visualization as part of this page. Static example follows.</p>
-
-    
   </div>
-  
-  <!-- Visualization goes here -->
-  <div class='vis-holder'>
-    <!-- Change viewbox to whatever you want, e.g., '0 0 1000 6000' This determines your aspect ratio and coordinate system     -->
-    <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
-    <svg id='vis-svg-1'  preserveAspectRatio='xMidYMid meet' class='vis-svg' viewBox='0 0 1000 1000' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-      <!-- Don't delete the closing tag! -->
-    </svg>
 
+  <!-- Radio buttons for mrb variable selection -->
+  <div> <input type="radio" name="gender" value="precip" checked> Precipitation<br> </div>
+  <div> <input type="radio" name="gender" value="soilm"> Soil Moisture<br> </div>
+  <div> <input type="radio" name="gender" value="discharge"> River Discharge<br> </div>
+
+  <!-- Top visualizations (MRB) -->
+  <div class='vis-holder'>
     <div class='linechart-holder' id='linechart'></div>
-    <div class='onichart-holder' id='onichart'></div>
-    <!-- <div class='mrbLineChart-holder' id='mrbLineChart'></div> -->
     <div class='mrbMap-holder' id='mrbMap'></div>
+  </div>
+
+  <!-- Slider  -->
+  <div class='slider-holder' id='slider'></div>
+
+  <!-- Bottom visualizations (Pacific Ocean) -->
+  <div class='vis-holder2'>
+    <div class='onichart-holder' id='onichart'></div>
+    <div class='sstMap-holder' id='sstMap'></div>
   </div>
   
   <!-- Further writeup -->
@@ -137,7 +140,6 @@
   
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src='lib/d3.v6.1.1/d3.min.js'></script>
-  <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
   <script src='js/timeSlider.js'></script>
   <script src='js/sstMap.js'></script>
   <script src='js/mrbMap.js'></script>
@@ -145,5 +147,6 @@
   <script src='js/onichart.js'></script>
   <script src='js/visualization.js'></script>
   <script src='js/utils.js'></script>
+
 </body>
 </html>

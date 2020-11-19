@@ -16,9 +16,10 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     // create svg for later appending
     const svg = d3.select("#mrbMap")
         .append('svg')
-        .attr('preserveAspectRatio', 'xMidYMid meet')
+        .attr('width' , 940)
+        .attr('height', 600)
         .attr('viewBox', [0, 0, 1000, 500].join(' '))
-        .classed('svg-content', true);;
+        .classed('svg-content', true);
     const g = svg.append("g").attr("id", "map");
 
     // create projection 
@@ -40,7 +41,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     createLegend(varMin, varMax);
 
     // color scale function
-    const myColor = d3.scaleLinear().domain([varMin, varMax]).range(["white", "blue"]);
+    const myColor = d3.scaleLinear().domain([varMin, varMax]).range(["white", "#001144"]);
 
     // add squares to map and apply tooltip behavior
     g.selectAll("rect")
@@ -69,7 +70,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
                     value: varMin
                 },
                 {
-                    color: "blue",
+                    color: "#001144",
                     value: varMax
                 }
             ],

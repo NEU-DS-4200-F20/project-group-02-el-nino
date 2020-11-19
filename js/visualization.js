@@ -17,12 +17,24 @@
   // time-series time change
   const dispatchString = "timeChange";
 
-  // create charts
+  // select buttons to update charts on input
+  //const buttons = d3.selectAll('input');
+
+  // create/update charts
   const timeSeriesSlider = timeSlider().timeDispatcher(d3.dispatch(dispatchString))();
   const sstMapChart = sstMap()(geometricLandData, currentSSTData);
-  const mrbViz = mrbMap("precip", geometricLandData, currentPrecipData, null);
-  const mrbLineChart = lineChart("discharge");
   const oniLineChart = oni();
+  const mrbViz = mrbMap("precip", geometricLandData, currentPrecipData, null);
+  const mrbLineChart = lineChart("precip");
+
+  /*
+  // update charts on radio button selection
+  buttons.on('change', function(d) {
+    const mrbViz = mrbMap(this.value, geometricLandData, currentPrecipData, null);
+    const mrbLineChart = lineChart(this.value);
+    console.log('button changed to ' + this.value);
+  });
+  */
 
   //Need to implement button to switch these charts. For now to see these,
   //comment out mrbLineChart and uncomment one of these.
