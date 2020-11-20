@@ -1,5 +1,6 @@
 function mrbMap(condition, geographicData, precipData, soilmData) {
 
+    // initialize variables
     let data, varName, sqSize;
 
     // set file, variable name, and square size depending on input
@@ -17,7 +18,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     const svg = d3.select("#mrbMap")
         .append('svg')
         .attr('width' , 940)
-        .attr('height', 600)
+        .attr('height', 400)
         .attr('viewBox', [0, 0, 1000, 500].join(' '))
         .classed('svg-content', true);
     const g = svg.append("g").attr("id", "map");

@@ -7,7 +7,7 @@ function oni() {
         let minOni = d3.min(data, function(d){return parseFloat(d.oni)});
     
         let width  = 940;
-        let height = 600;
+        let height = 400;
         let margin = {
             top: 50,
             bottom: 50,
@@ -93,7 +93,7 @@ function oni() {
             .attr("offset", function(d) { return d.offset; })	
             .attr("stop-color", function(d) { return d.color; });
         
-        //blue path
+        // blue path
         svg.append('path')
             .datum(data)
             .attr('class', 'area')
@@ -109,14 +109,8 @@ function oni() {
             .attr("cx", function(d) { return xScale(Date.parse(d.date)) })
             .attr("cy", function(d) { return yScale(parseFloat(d.oni)) })
             .attr("r", 2)
-
-      
-
     
     });
-
-
-
-        return lineChart;
+    //return lineChart;
     
 }

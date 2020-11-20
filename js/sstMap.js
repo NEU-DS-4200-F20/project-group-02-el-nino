@@ -8,7 +8,7 @@ function sstMap() {
     const svg = d3.select("#sstMap")
         .append('svg')
         .attr('width' , 940)
-        .attr('height', 600)
+        .attr('height', 400)
         .attr('viewBox', [0, 0, 900, 500].join(' '))
         .classed('svg-content', true);
 

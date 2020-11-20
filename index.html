@@ -25,6 +25,7 @@
   <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
   <script src="https://unpkg.com/d3-simple-slider@1.10.2/dist/d3-simple-slider.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
+  <script src='data/lcData.js'></script>
   
 </head>
 
@@ -55,9 +56,9 @@
   </div>
 
   <!-- Radio buttons for mrb variable selection -->
-  <div> <input type="radio" name="gender" value="precip" checked> Precipitation<br> </div>
-  <div> <input type="radio" name="gender" value="soilm"> Soil Moisture<br> </div>
-  <div> <input type="radio" name="gender" value="discharge"> River Discharge<br> </div>
+  <button onclick="updateLC(precipData); updateMap('precip')">Precipitation</button>
+  <button onclick="updateLC(soilmData); updateMap('soilm')">Soil Moisture</button>
+  <button onclick="updateLC(dischargeData)">River Discharge</button>
 
   <!-- Top visualizations (MRB) -->
   <div class='vis-holder'>
@@ -92,10 +93,6 @@
     <p>Replace with a brief explanation (can be copied from the paper) and linked presentation slides.</p>
     
     <h1>Acknowledgments</h1>
-
-    <p>
-      List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.
-    </p>
 
     <ul>
       <li><a href='https://d3js.org/'>
