@@ -17,7 +17,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     // create svg for later appending
     const svg = d3.select("#mrbMap")
         .append('svg')
-        .attr('width' , 500)
+        .attr('width' , 300)
         .attr('height', 400)
         .attr('viewBox', [0, 0, 1000, 500].join(' '))
         .classed('svg-content', true);
