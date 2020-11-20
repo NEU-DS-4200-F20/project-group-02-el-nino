@@ -6,7 +6,7 @@ function oni() {
         let maxOni = d3.max(data, function(d){return parseFloat(d.oni)});
         let minOni = d3.min(data, function(d){return parseFloat(d.oni)});
     
-        let width  = 300;
+        let width  = 940;
         let height = 400;
         let margin = {
             top: 50,

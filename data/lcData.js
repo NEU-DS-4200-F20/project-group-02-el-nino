@@ -1,5 +1,5 @@
 // intialize datasets for line charts
-var precipData = [
+var precipLCData = [
     {date: new Date(2018, 1, 1), var: 45.74703662},
     {date: new Date(2018, 2, 1), var: 51.86463004},
     {date: new Date(2018, 3, 1), var: 45.1302997},
@@ -26,7 +26,7 @@ var precipData = [
     {date: new Date(2019, 12, 1), var: 60.73918386}
  ];
 
- var soilmData = [
+ var soilmLCData = [
     {date: new Date(2018, 1, 1), var: 0.182805671},
     {date: new Date(2018, 2, 1), var: 0.177961298},
     {date: new Date(2018, 3, 1), var: 0.180416957},
@@ -53,7 +53,7 @@ var precipData = [
     {date: new Date(2019, 12, 1), var: 0.217468986}
  ];
 
- var dischargeData = [
+ var dischargeLCData = [
     {date: new Date(2018, 1, 1), var: 477300},
     {date: new Date(2018, 2, 1), var: 791900},
     {date: new Date(2018, 3, 1), var: 1603000},

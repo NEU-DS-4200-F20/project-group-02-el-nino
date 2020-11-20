@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 30, bottom: 30, left: 70},
-    width = 300 - margin.left - margin.right,
+    width = 940 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -61,4 +61,4 @@ function updateLC(data) {
 }
 
 // At the beginning, I run the update function on the first dataset:
-updateLC(precipData)
+updateLC(precipLCData)
