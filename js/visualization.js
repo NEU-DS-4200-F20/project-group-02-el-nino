@@ -28,8 +28,6 @@
   //const mrbViz = mrbMap("precip", geometricLandData, currentPrecipData, null);
   //const mrbLineChart = lineChart();
 
-
-
   // dispatch time chage events
   timeSeriesSlider.timeDispatcher().on(dispatchString, timeValue => {
     const newDate = valueToDate(timeValue);
