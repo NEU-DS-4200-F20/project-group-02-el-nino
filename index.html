@@ -56,17 +56,16 @@
 
     <h1>Visualization</h1>
   </div>
-
+  
   <!-- Radio buttons for mrb variable selection -->
-  <form id="dimensions">
-    <input type="radio" name="gender" value="precip" checked onclick="updateLC(precipLCData)">Precipitation<br>
-    <input type="radio" name="gender" value="soilm" onclick="updateLC(soilmLCData)">Soil Moisture<br>
-    <input type="radio" name="gender" value="discharge" onclick="updateLC(dischargeLCData)">River Discharge<br>
-  </form>
+  <input type="radio" name="gender" value="precip" checked onclick="updateLC(precipLCData, 'precip')">Precipitation</input>
+  <input type="radio" name="gender" value="soilm" onclick="updateLC(soilmLCData, 'soilm')">Soil Moisture</input>
+  <input type="radio" name="gender" value="discharge" onclick="updateLC(dischargeLCData, 'discharge')">River Discharge</input>
 
   <!-- Top visualizations (MRB) -->
   <div class='vis-holder'>
     <div class='linechart-holder' id='linechart'></div>
+    <h3 style="text-align:center;"><br/> <br/> <br/> <br/>Mississippi <br/> River <br/> Basin</h3>
     <div class='mrbMap-holder' id='mrbMap'></div>
   </div>
 
@@ -76,6 +75,7 @@
   <!-- Bottom visualizations (Pacific Ocean) -->
   <div class='vis-holder2'>
     <div class='onichart-holder' id='onichart'></div>
+    <h3 style="text-align:center;"><br/> <br/> <br/> <br/>Pacific <br/> Ocean <br/> Basin</h3>
     <div class='sstMap-holder' id='sstMap'></div>
   </div>
   

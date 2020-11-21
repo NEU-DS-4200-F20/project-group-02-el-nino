@@ -6,14 +6,14 @@ function oni() {
         let maxOni = d3.max(data, function(d){return parseFloat(d.oni)});
         let minOni = d3.min(data, function(d){return parseFloat(d.oni)});
     
-        let width  = 940;
-        let height = 400;
-        let margin = {
-            top: 50,
-            bottom: 50,
-            left: 100,
-            right: 100
-        };
+    var width  = 600;
+    var height = 400;
+    var margin = {
+        top: 50,
+        bottom: 50,
+        left: 80,
+        right: 0
+    };
         let ourBrush = null,
         selectableElements = d3.select(null),
         dispatcher;
@@ -22,7 +22,6 @@ function oni() {
             .append('svg')
                 .attr('width' , width)
                 .attr('height', height)
-                .style('background', '#efefef')
             .append('g')
                 .attr('transform','translate(' + margin.left +',' + margin.top + ')');
     

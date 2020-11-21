@@ -1,3 +1,4 @@
+// function to create map of MRB conditions (top right visualization) based on user selection
 function mrbMap(condition, geographicData, precipData, soilmData) {
 
     // select appropriate data
@@ -15,18 +16,25 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
         .style("opacity", 0);
 
     // formatting parameters
-    var margin = {top: 30, right: 30, bottom: 30, left: 70},
-        width = 940 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    var width  = 500;
+    var height = 250;
+    var margin = {
+        top: 50,
+        bottom: 50,
+        left: 0,
+        right: 0
+    };
 
     // create svg for later appending
     const svg = d3.select("#mrbMap")
         .append('svg')
-        .attr('width' , 940)
-        .attr('height', 400)
+        .attr('width' , width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
         .attr('viewBox', [0, 0, 1000, 500].join(' '))
         .classed('svg-content', true);
-    const g = svg.append("g").attr("id", "map");
+
+    // create group of points to differentiate from sst map 
+    const mrbPts = svg.append("g").attr("id", "mrbPts");
 
     // create projection 
     const projection = d3.geoEquirectangular().scale(700).center([-98.57, 42]);
@@ -34,20 +42,21 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     // append path for global land projection
     const land = topojson.feature(geographicData, geographicData.objects.land);
     const path = d3.geoPath(projection)(land);
-    g.append("path").attr("d", path);
+    mrbPts.append("path").attr("d", path);
 
     // draw map
     function drawMap(data, varName) {
+
         // get max and min of variable for scaling purposes
         const varMax = d3.max(data, d => d.var);
         const varMin = d3.min(data, d => d.var);
         createLegend(varMin, varMax);
 
         // color scale function
-        const myColor = d3.scaleLinear().domain([varMin, varMax]).range(["white", "#001144"]);
+        const myColor = d3.scaleLinear().domain([varMin, varMax]).range(["white", "black"]);
 
         // add squares to map and apply tooltip behavior
-        g.selectAll("rect")
+        mrbPts.selectAll("rect")
             .data(data)
             .enter()
             .append("rect")
@@ -68,6 +77,8 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
 
         // create legend
         function createLegend(varMin, varMax) {
+
+            // color scale
             const legend = [{
                         color: "white",
                         value: varMin
@@ -79,12 +90,14 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
                 ],
                 extent = d3.extent(legend, d => d.value);
 
+            // formatting parameters
             const padding = 12,
                 width = 240,
                 height = 64,
                 innerWidth = width - padding * 2,
                 barHeight = 12;
 
+            // create rectangular spectrum
             const g = svg.append("g");
             g.append("rect")
                 .attr("x", 0)
@@ -101,18 +114,20 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
                 .style("text-anchor", "middle")
                 .style("font-size", "14px");
 
+            // create scale
             const legendScale = d3
                 .scaleLinear()
                 .range([padding, innerWidth + padding])
                 .domain(extent);
 
+            // create ticks and axis
             const legendTicks = legend.map(d => d.value);
-
             const legendAxis = d3
                 .axisBottom(legendScale)
                 .tickSize(barHeight * 1.5)
                 .tickValues(legendTicks);
 
+            //
             const defs = svg.append("defs");
             const linearGradient = defs
                 .append("linearGradient")
@@ -153,13 +168,25 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
 
     }
 
-    
+    // update the map as radio buttons are selected
     function updateMap(condition) {
-        d3.selectAll("rect").remove()
-        output = chooseData(condition)
-        data = output[0]
-        varName = output[1]
-        drawMap(data, varName)
+        d3.select('#mrbPts').selectAll('rect').remove()
+        if (condition == 'discharge') {
+            const dischargeMap = svg.append("g").attr("id", "disMap");
+            dischargeMap.append("text")             
+                .attr("transform",
+                    "translate(" + (width/2 - margin.right + 220) + " ," + 
+                    (height - margin.bottom + 80) + ")")
+                .style("text-anchor", "middle")
+                .attr("fill", "white")
+                .text("No map data for river discharge");
+        } else {
+            d3.select('#disMap').selectAll('text').remove()
+            output = chooseData(condition)
+            data = output[0]
+            varName = output[1]
+            drawMap(data, varName)
+        }
     }
 
     // update charts on radio button selection

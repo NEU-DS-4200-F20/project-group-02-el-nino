@@ -1,5 +1,15 @@
 // function to create sst map
 function sstMap() {
+
+  var width  = 500;
+  var height = 250;
+  var margin = {
+      top: 50,
+      bottom: 50,
+      left: 0,
+      right: 0
+  };
+
   // color scale function
   const myColor = d3.scaleLinear().domain([-2, 32]).range(["white", "#001144"]);
 
@@ -7,8 +17,8 @@ function sstMap() {
     // create svg for later appending
     const svg = d3.select("#sstMap")
         .append('svg')
-        .attr('width' , 940)
-        .attr('height', 400)
+        .attr('width' , width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
         .attr('viewBox', [0, 0, 900, 500].join(' '))
         .classed('svg-content', true);
 

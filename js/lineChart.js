@@ -1,7 +1,12 @@
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 30, left: 70},
-    width = 940 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+// formatting parameters
+var width  = 500;
+var height = 250;
+var margin = {
+    top: 50,
+    bottom: 50,
+    left: 80,
+    right: 0
+};
 
 // append the svg object to the body of the page
 var svg = d3.select("#linechart")
@@ -9,33 +14,64 @@ var svg = d3.select("#linechart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Initialise a X axis:
-var x = d3.scaleTime().range([0,width]);
+// initialize and append x-axis
+var x = d3.scaleTime()
+    .range([0, width]);
 var xAxis = d3.axisBottom().scale(x);
 svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
     .attr("class","myXaxis")
+    .attr("transform", "translate(0," + height + ")")
 
-// Initialize an Y axis
-var y = d3.scaleLinear().range([height, 0]);
+// x-axis label
+svg.append("text")             
+    .attr("transform",
+        "translate(" + (width/2 - margin.right) + " ," + 
+        (height + 40) + ")")
+    .style("text-anchor", "middle")
+    .text("Date");
+
+// initialize and append y-axis
+var y = d3.scaleLinear()
+    .range([height, 0]);
 var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
     .attr("class","myYaxis")
 
-// Create a function that takes a dataset as input and update the plot:
-function updateLC(data) {
+// create group of points to differentiate from sst map 
+const lcYlabel = svg.append("g").attr("id", "lcYlabel");
 
-    // Create the X axis:
+// Create a function that takes a dataset as input and update the plot:
+function updateLC(data, condition) {
+
+    d3.select('#lcYlabel').selectAll('text').remove()
+
+    if (condition == 'precip') {
+        varName = 'Precipitation (cm)'
+    } else if (condition == 'soilm') {
+        varName = 'Soil Moisture (water / soil ratio)'
+    } else if (condition == 'discharge') {
+        varName = 'River Discharge (ft^3 / s)'
+    }
+
+    // y-axis label
+    lcYlabel.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Average MRB " + varName);
+
+    // set x-axis domain and transition
     x.domain([d3.min(data, function(d) { return d.date }), d3.max(data, function(d) { return d.date }) ]);
     svg.selectAll(".myXaxis").transition()
         .duration(1000)
         .call(xAxis);
 
     // create the Y axis
-    y.domain([0, d3.max(data, function(d) { return d.var  }) ]);
+    y.domain([d3.min(data, function(d) { return d.var  }), d3.max(data, function(d) { return d.var  }) ]);
     svg.selectAll(".myYaxis")
         .transition()
         .duration(1000)
@@ -61,4 +97,4 @@ function updateLC(data) {
 }
 
 // At the beginning, I run the update function on the first dataset:
-updateLC(precipLCData)
+updateLC(precipLCData, 'precip')

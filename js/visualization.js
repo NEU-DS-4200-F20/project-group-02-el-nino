@@ -21,12 +21,9 @@
 
   // create/update charts
   const timeSeriesSlider = timeSlider().timeDispatcher(d3.dispatch(dispatchString))();
-  const sstMapChart = sstMap()(geometricLandData, currentSSTData);
   const oniLineChart = oni();
+  const sstMapChart = sstMap()(geometricLandData, currentSSTData);
   mrbMap("precip", geometricLandData, currentPrecipData, currentSoilmData)
-
-  //const mrbViz = mrbMap("precip", geometricLandData, currentPrecipData, null);
-  //const mrbLineChart = lineChart();
 
   // dispatch time chage events
   timeSeriesSlider.timeDispatcher().on(dispatchString, timeValue => {
