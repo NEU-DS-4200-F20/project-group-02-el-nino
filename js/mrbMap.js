@@ -54,8 +54,8 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
         console.log(varMax)
 
         // create and draw legend
-        // based on conventions of ...)
-        const myLegend =  legend({color: d3.scaleSequential([varMin, varMax], d3.interpolateRdBu),
+        // based on conventions of ..............
+        const myLegend =  legend({color: d3.scaleSequential([varMin, varMax], d3.interpolateBlues),
             title: varName
         });
         d3.select("#legendDiv")
@@ -65,7 +65,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
         // color scale function
         const myColor = d3.scaleSequential()
             .domain([varMin, varMax])
-            .interpolator(d3.interpolateRdBu);
+            .interpolator(d3.interpolateBlues);
 
         // add squares to map and apply tooltip behavior
         mrbPts.selectAll("rect")
@@ -101,7 +101,7 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     // update the map as radio buttons are selected
     function updateMap(condition) {
         d3.select('#mrbPts').selectAll('rect').remove()
-        d3.select("#legendDiv").remove()
+        //d3.select("#legendDiv").remove()
         if (condition == 'discharge') {
             const dischargeMap = svg.append("g").attr("id", "disMap");
             dischargeMap.append("text")             
