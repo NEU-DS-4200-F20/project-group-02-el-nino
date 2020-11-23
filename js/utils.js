@@ -9,7 +9,7 @@ const valueToDate = value => {
     return date;
 }
 
-// create a legend based on given color, title,
+// create a legend based on given color, title
 // based on https://codepen.io/ubermario/pen/MWKpyJd?editors=1100
 function ramp(color, n = 256) {
     //const canvas = DOM.canvas(n, 1);

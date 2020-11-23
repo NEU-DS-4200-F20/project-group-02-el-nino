@@ -13,7 +13,7 @@ function sstMap() {
   // color scale function
   const myColor = d3.scaleSequential()
       .domain([-2, 32])
-      .interpolator(d3.interpolateRdBu);
+      .interpolator(d3.interpolateBlues);
       
   function chart(geographicData, sstData) {
     // create svg for later appending
@@ -64,7 +64,7 @@ function sstMap() {
 
     // create and draw legend
     // based on conventions of ...
-    const myLegend =  legend({color: d3.scaleSequential([-2, 32], d3.interpolateRdBu),
+    const myLegend =  legend({color: d3.scaleSequential([-2, 32], d3.interpolateBlues),
       title: "Sea Surface Temperature (°C)"
     });
     d3.select("#legendDiv2")

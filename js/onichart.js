@@ -80,10 +80,10 @@ function oni() {
             .attr("x2", 0).attr("y2", yScale(2.0))		
         .selectAll("stop")						
             .data([								
-                {offset: "0%", color: "blue"},
-                {offset: "50%", color: "blue"},	
-                {offset: "50%", color: "red"},				
-                {offset: "100%", color: "red"}	
+                {offset: "0%", color: "#5597E1"},
+                {offset: "50%", color: "#5597E1"},	
+                {offset: "50%", color: "#E15555"},				
+                {offset: "100%", color: "#E15555"}	
                 ])						
         .enter().append("stop")			
             .attr("offset", function(d) { return d.offset; })	
