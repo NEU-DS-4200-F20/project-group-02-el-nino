@@ -12,11 +12,9 @@ function oni() {
         top: 50,
         bottom: 50,
         left: 80,
-        right: 0
+        right: 10
     };
-        let ourBrush = null,
-        selectableElements = d3.select(null),
-        dispatcher;
+
     
         let svg = d3.select('#onichart')
             .append('svg')
@@ -97,7 +95,26 @@ function oni() {
             .datum(data)
             .attr('class', 'area')
             .attr("d", area);
-    
+
+        // create tooltip div
+        let div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("border-width", "5px")
+            .style("border-radius", "7px")
+            
+        //months to use in tool tip
+        var months = ["February","March","April","May","June","July","August","September","October","November","December", "January"];
+
+        function oniCheck(d) {
+            if (d.oni  > 0) {
+                return "El Niño"
+            }
+            else {
+                return "La Niña";
+            }
+        }
+
         // Add the points
         svg.selectAll("myCircles")
             .data(data)
@@ -107,7 +124,17 @@ function oni() {
             .attr("stroke", "none")
             .attr("cx", function(d) { return xScale(Date.parse(d.date)) })
             .attr("cy", function(d) { return yScale(parseFloat(d.oni)) })
-            .attr("r", 2)
+            .attr("r", 3.5)
+            .on("click", function (event, d) {
+                div.transition()
+                  .duration(20)
+                  .style("opacity", .9);
+                div.html(months[new Date(d.date).getMonth()] + " " 
+                    + d.date.substring(0,4) + "<br/>" +"ONI Value: " + 
+                    parseFloat(d.oni) + "<br/>" + oniCheck(d))
+                  .style("left", (event.pageX) + "px")
+                  .style("top", (event.pageY - 20) + "px");
+              });
     
     });
     //return lineChart;
