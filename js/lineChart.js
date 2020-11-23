@@ -1,11 +1,11 @@
 // formatting parameters
-var width  = 500;
+var width  = 550;
 var height = 250;
 var margin = {
     top: 50,
     bottom: 50,
     left: 80,
-    right: 0
+    right: 10
 };
 
 // append the svg object to the body of the page

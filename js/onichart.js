@@ -6,26 +6,25 @@ function oni() {
         let maxOni = d3.max(data, function(d){return parseFloat(d.oni)});
         let minOni = d3.min(data, function(d){return parseFloat(d.oni)});
     
-    var width  = 600;
-    var height = 400;
-    var margin = {
-        top: 50,
-        bottom: 50,
-        left: 80,
-        right: 10
-    };
-
+        var width  = 550;
+        var height = 400;
+        var margin = {
+            top: 50,
+            bottom: 50,
+            left: 80,
+            right: 30
+        };
     
         let svg = d3.select('#onichart')
             .append('svg')
-                .attr('width' , width)
-                .attr('height', height)
+                .attr('width' , width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
             .append('g')
                 .attr('transform','translate(' + margin.left +',' + margin.top + ')');
     
         let xScale = d3.scaleTime()
             .domain([minDate, maxDate])
-            .range([0, width - margin.left - margin.right]);
+            .range([0, width]);
     
         let yScale = d3.scaleLinear()
             .domain([minOni, maxOni])
@@ -37,7 +36,7 @@ function oni() {
             .attr('transform', 'translate(0, ' + (height - margin.bottom - margin.top) + ')')
             .call(xAxis);
         
-        //x axis label
+        // x-axis label
         svg.append("text")             
         .attr("transform",
                 "translate(" + ((width/2) - margin.right) + " ," + 
@@ -56,7 +55,7 @@ function oni() {
         svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - margin.left)
-            .attr("x",0 - (height / 2))
+            .attr("x",0 - (height / 2) + 45)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Oceanic Niño Index (ONI)");

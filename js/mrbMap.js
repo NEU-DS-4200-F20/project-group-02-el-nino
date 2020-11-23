@@ -1,23 +1,23 @@
 // function to create map of MRB conditions (top right visualization) based on user selection
 function mrbMap(condition, geographicData, precipData, soilmData) {
 
-    // select appropriate data
+    // select appropriate data and title based on provided condition
     function chooseData(condition) {
         if (condition == 'precip') {
-            return [precipData, 'Precipitation']
+            return [precipData, 'Precipitation (cm)']
         } else if (condition == 'soilm') {
-            return [soilmData, 'Soil Moisture']
+            return [soilmData, 'Soil Moisture (water / soil ratio)']
         }
     }
 
-    // create tooltip div
+    // create tooltip div for details-on-demand
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
     // formatting parameters
-    var width  = 500;
-    var height = 250;
+    var width  = 650;
+    var height = 225;
     var margin = {
         top: 50,
         bottom: 50,
@@ -50,10 +50,22 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
         // get max and min of variable for scaling purposes
         const varMax = d3.max(data, d => d.var);
         const varMin = d3.min(data, d => d.var);
-        createLegend(varMin, varMax);
+        console.log(varMin)
+        console.log(varMax)
 
+        // create and draw legend
+        // based on conventions of ...)
+        const myLegend =  legend({color: d3.scaleSequential([varMin, varMax], d3.interpolateRdBu),
+            title: varName
+        });
+        d3.select("#legendDiv")
+            .node()
+            .appendChild(myLegend)
+        
         // color scale function
-        const myColor = d3.scaleLinear().domain([varMin, varMax]).range(["white", "black"]);
+        const myColor = d3.scaleSequential()
+            .domain([varMin, varMax])
+            .interpolator(d3.interpolateRdBu);
 
         // add squares to map and apply tooltip behavior
         mrbPts.selectAll("rect")
@@ -75,102 +87,21 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
                     .style("top", (event.pageY - 28) + "px");
             });
 
-        // create legend
-        function createLegend(varMin, varMax) {
-
-            // color scale
-            const legend = [{
-                        color: "white",
-                        value: varMin
-                    },
-                    {
-                        color: "#001144",
-                        value: varMax
-                    }
-                ],
-                extent = d3.extent(legend, d => d.value);
-
-            // formatting parameters
-            const padding = 12,
-                width = 240,
-                height = 64,
-                innerWidth = width - padding * 2,
-                barHeight = 12;
-
-            // create rectangular spectrum
-            const g = svg.append("g");
-            g.append("rect")
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", width)
-                .attr("height", height)
-                .style("fill", "white")
-                .style("stroke", "black")
-                .style("stroke-width", "1px");
-            g.append("text")
-                .attr("x", width / 2)
-                .attr("y", height / 3)
-                .text(varName)
-                .style("text-anchor", "middle")
-                .style("font-size", "14px");
-
-            // create scale
-            const legendScale = d3
-                .scaleLinear()
-                .range([padding, innerWidth + padding])
-                .domain(extent);
-
-            // create ticks and axis
-            const legendTicks = legend.map(d => d.value);
-            const legendAxis = d3
-                .axisBottom(legendScale)
-                .tickSize(barHeight * 1.5)
-                .tickValues(legendTicks);
-
-            //
-            const defs = svg.append("defs");
-            const linearGradient = defs
-                .append("linearGradient")
-                .attr("id", "myGradient");
-            linearGradient
-                .selectAll("stop")
-                .data(legend)
-                .enter()
-                .append("stop")
-                .attr(
-                    "offset",
-                    d => ((d.value - extent[0]) / (extent[1] - extent[0])) * 100 + "%"
-                )
-                .attr("stop-color", d => d.color);
-
-            g.append("rect")
-                .attr("x", padding)
-                .attr("y", height / 2 - barHeight / 4)
-                .attr("width", innerWidth)
-                .attr("height", barHeight)
-                .attr("border", "2px solid black")
-                .style("fill", "url(#myGradient)");
-
-            g.append("g")
-                .call(legendAxis)
-                .attr("transform", `translate(0,${height / 2 - barHeight / 4})`)
-                .select(".domain")
-                .remove();
-        };
-
         // allow zooming and panning
         const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
         svg.call(zoom);
 
         function zoomed(event, d) {
-            g.attr("transform", event.transform);
+            mrbPts.attr("transform", event.transform);
         }
 
+        return [varMin, varMax]
     }
 
     // update the map as radio buttons are selected
     function updateMap(condition) {
         d3.select('#mrbPts').selectAll('rect').remove()
+        d3.select("#legendDiv").remove()
         if (condition == 'discharge') {
             const dischargeMap = svg.append("g").attr("id", "disMap");
             dischargeMap.append("text")             
@@ -192,10 +123,8 @@ function mrbMap(condition, geographicData, precipData, soilmData) {
     // update charts on radio button selection
     const buttons = d3.selectAll('input');
     buttons.on('change', function(d) {
-        console.log('button changed to ' + this.value);
         updateMap(this.value)
-        
     });
 
-    drawMap(precipData, 'Precipitation')
+    drawMap(precipData, 'Precipitation (cm)')
 }

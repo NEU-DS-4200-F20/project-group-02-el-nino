@@ -3,7 +3,7 @@ function timeSlider() {
     let dispatcher;
 
     function slider() {
-        const width = 565,
+        const width = 400,
             height = 120
         // margin = {
         //     top: 20,

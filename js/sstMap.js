@@ -1,18 +1,20 @@
 // function to create sst map
 function sstMap() {
 
-  var width  = 500;
+  var width  = 480;
   var height = 250;
   var margin = {
       top: 50,
       bottom: 50,
-      left: 0,
+      left: 200,
       right: 0
   };
 
   // color scale function
-  const myColor = d3.scaleLinear().domain([-2, 32]).range(["white", "#001144"]);
-
+  const myColor = d3.scaleSequential()
+      .domain([-2, 32])
+      .interpolator(d3.interpolateRdBu);
+      
   function chart(geographicData, sstData) {
     // create svg for later appending
     const svg = d3.select("#sstMap")
@@ -26,7 +28,6 @@ function sstMap() {
     const g = svg.append("g").attr("id", "map");
 
     // create projection 
-    //const projection = d3.geoMercator().center([0, 0]).rotate([180, 0, 0]);
     const projection = d3.geoEquirectangular().rotate([180, 0, 0]);
 
     // create tooltip div
@@ -60,84 +61,15 @@ function sstMap() {
     const land = topojson.feature(geographicData, geographicData.objects.land);
     const path = d3.geoPath(projection)(land);
     geoPts.append("path").attr("d", path);
-    createLegend();
 
-    // create legend
-    function createLegend() {
-      const legend = [{
-            color: "white",
-            value: -2
-          },
-          {
-            color: "#001144",
-            value: 32
-          }
-        ],
-        extent = d3.extent(legend, d => d.value);
-
-      const padding = 12,
-        width = 240,
-        height = 64,
-        innerWidth = width - padding * 2,
-        barHeight = 12;
-
-      const g = svg.append("g").attr("id", "legend");
-      g.append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", width)
-        .attr("height", height)
-        .style("fill", "white")
-        .style("stroke", "black")
-        .style("stroke-width", "1px");
-      g.append("text")
-        .attr("x", width / 2)
-        .attr("y", height / 3)
-        .text("Sea Surface Temperature (°C)")
-        .style("text-anchor", "middle")
-        .style("font-size", "14px");
-
-      const legendScale = d3
-        .scaleLinear()
-        .range([padding, innerWidth + padding])
-        .domain(extent);
-
-      const legendTicks = legend.map(d => d.value);
-
-      const legendAxis = d3
-        .axisBottom(legendScale)
-        .tickSize(barHeight * 1.5)
-        .tickValues(legendTicks);
-
-      const defs = svg.append("defs");
-      const linearGradient = defs
-        .append("linearGradient")
-        .attr("id", "myGradient");
-      linearGradient
-        .selectAll("stop")
-        .data(legend)
-        .enter()
-        .append("stop")
-        .attr(
-          "offset",
-          d => ((d.value - extent[0]) / (extent[1] - extent[0])) * 100 + "%"
-        )
-        .attr("stop-color", d => d.color);
-
-      g.append("rect")
-        .attr("x", padding)
-        .attr("y", height / 2 - barHeight / 4)
-        .attr("width", innerWidth)
-        .attr("height", barHeight)
-        .attr("border", "2px solid black")
-        .style("fill", "url(#myGradient)");
-
-      g.append("g")
-        .call(legendAxis)
-        .attr("transform", `translate(0,${height / 2 - barHeight / 4})`)
-        .select(".domain")
-        .remove();
-    };
+    // create and draw legend
+    // based on conventions of ...
+    const myLegend =  legend({color: d3.scaleSequential([-2, 32], d3.interpolateRdBu),
+      title: "Sea Surface Temperature (°C)"
+    });
+    d3.select("#legendDiv2")
+      .node()
+      .appendChild(myLegend)
 
     // allow zooming and panning
     const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
