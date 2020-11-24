@@ -3,6 +3,17 @@ function mrbMap() {
 
     let currentVar = 'precip';
 
+    // color scale function
+    const precipColor = d3.scaleSequential()
+        .domain([0, 100])
+        .interpolator(d3.interpolateBlues);
+    const soilmColor = d3.scaleSequential()
+        .domain([0, 0.5])
+        .interpolator(d3.interpolateBlues);
+
+    // create projection 
+    const projection = d3.geoEquirectangular().scale(700).center([-98.57, 42]);
+
     function chart(geographicData, precipData, soilmData) {
 
         // create tooltip div for details-on-demand
@@ -40,9 +51,6 @@ function mrbMap() {
             .style("text-anchor", "middle")
             .text("No map data for river discharge");
 
-        // create projection 
-        const projection = d3.geoEquirectangular().scale(700).center([-98.57, 42]);
-
         // append path for global land projection
         const land = topojson.feature(geographicData, geographicData.objects.land);
         const path = d3.geoPath(projection)(land);
@@ -66,14 +74,6 @@ function mrbMap() {
         d3.select("#legendDiv")
             .node()
             .appendChild(soilmLegend)
-
-        // color scale function
-        const precipColor = d3.scaleSequential()
-            .domain([0, 100])
-            .interpolator(d3.interpolateBlues);
-        const soilmColor = d3.scaleSequential()
-            .domain([0, 0.5])
-            .interpolator(d3.interpolateBlues);
 
         // add squares to map and apply tooltip behavior
         precipPts.selectAll("rect")
@@ -127,7 +127,7 @@ function mrbMap() {
                 "precip": "#precipPts",
                 "soilm": "#soilmPts"
             };
-            console.log(currentVar, condition)
+
             if (currentVar === 'discharge') {
                 d3.select('#mrbG').attr("visibility", "visible");
                 d3.select('#disTxtG').attr("visibility", "hidden");
@@ -141,6 +141,7 @@ function mrbMap() {
             } else {
                 d3.select(mapVars[condition]).attr("visibility", "visible");
             }
+
             currentVar = condition;
         }
 
@@ -153,21 +154,18 @@ function mrbMap() {
         return chart;
     }
 
-    chart.updateTime = function (timeData) {
+    chart.updateTime = function (timePrecipData, timeSoilmData) {
         if (!arguments.length) return;
-        const rects = d3.select('#sstPts').selectAll('rect');
-        const div = d3.select(".tooltip")
-        rects
-            .data(timeData)
-            .on("click", function (event, d) {
-                div.transition()
-                    .duration(20)
-                    .style("opacity", .9);
-                div.html("Lat: " + d.latitude + "<br/>" + "Lon: " + d.longitude + "<br/>" + "SST: " + parseFloat(d.sst).toFixed(2))
-                    .style("left", (event.pageX) + "px")
-                    .style("top", (event.pageY - 28) + "px");
-            })
-            .transition().duration(750).attr("fill", d => myColor(d.sst))
+        
+        const precipRects = d3.select('#precipPts').selectAll('rect');
+        precipRects
+            .data(timePrecipData)
+            .transition().duration(750).attr("fill", d => precipColor(d.var))
+
+        const soilmRects = d3.select('#soilmPts').selectAll('rect')
+        soilmRects.data
+            (timeSoilmData).exit().remove();
+        soilmRects.transition().duration(750).attr("fill", d => soilmColor(d.var))
     }
 
     return chart;

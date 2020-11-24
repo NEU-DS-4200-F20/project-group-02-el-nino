@@ -1,27 +1,27 @@
 // function to create sst map
 function sstMap() {
 
-  const width  = 480, height = 250;
+  const width = 480, height = 250;
   const margin = {
-      top: 50,
-      bottom: 50,
-      left: 200,
-      right: 0
+    top: 50,
+    bottom: 50,
+    left: 200,
+    right: 0
   };
 
   // color scale function
   const myColor = d3.scaleSequential()
-      .domain([-2, 32])
-      .interpolator(d3.interpolateBlues);
-      
+    .domain([-2, 32])
+    .interpolator(d3.interpolateBlues);
+
   function chart(geographicData, sstData) {
     // create svg for later appending
     const svg = d3.select("#sstMap")
-        .append('svg')
-        .attr('width' , width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .attr('viewBox', [0, 0, 900, 500].join(' '))
-        .classed('svg-content', true);
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .attr('viewBox', [0, 0, 900, 500].join(' '))
+      .classed('svg-content', true);
 
     // .on("click", reset);
     const g = svg.append("g").attr("id", "map");
@@ -63,7 +63,8 @@ function sstMap() {
 
     // create and draw legend
     // based on conventions of ...
-    const myLegend =  legend({color: d3.scaleSequential([-2, 32], d3.interpolateBlues),
+    const myLegend = legend({
+      color: d3.scaleSequential([-2, 32], d3.interpolateBlues),
       title: "Sea Surface Temperature (°C)"
     });
     d3.select("#legendDiv2")
@@ -84,18 +85,9 @@ function sstMap() {
   chart.updateTime = function (timeData) {
     if (!arguments.length) return;
     const rects = d3.select('#sstPts').selectAll('rect');
-    const div = d3.select(".tooltip")
     rects
-    .data(timeData)
-    .on("click", function (event, d) {
-      div.transition()
-        .duration(20)
-        .style("opacity", .9);
-      div.html("Lat: " + d.latitude + "<br/>" + "Lon: " + d.longitude + "<br/>" + "SST: " + parseFloat(d.sst).toFixed(2))
-        .style("left", (event.pageX) + "px")
-        .style("top", (event.pageY - 28) + "px");
-    })
-    .transition().duration(750).attr("fill", d => myColor(d.sst))
+      .data(timeData)
+      .transition().duration(750).attr("fill", d => myColor(d.sst))
   }
 
   return chart;
