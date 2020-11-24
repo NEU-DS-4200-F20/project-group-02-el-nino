@@ -95,6 +95,22 @@ function oni() {
             .attr('class', 'area')
             .attr("d", area);
 
+        //adding text to show el nino 
+        svg.append("text")
+            .attr('font-size', '1.5em')
+            .attr('y', 110)
+            .attr('x', 253)
+            .attr('fill', "white")
+            .text("El Niño");
+
+        //adding text to show la nina
+        svg.append("text")
+            .attr('font-size', '1.3em')
+            .attr('y', 195)
+            .attr('x', 3)
+            .attr('fill', "white")
+            .text("La Niña");
+
         // create tooltip div
         let div = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -136,6 +152,5 @@ function oni() {
               });
     
     });
-    //return lineChart;
     
 }
