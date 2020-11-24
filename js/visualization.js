@@ -13,8 +13,8 @@
   // current data variable controlled by slider
   // initialize to beginning date of data
   let currentSSTData = sstData.get("2018-01");
-  let currentPrecipData = precipData.get("2018-01")
-  let currentSoilmData = soilmData.get("2018-01")
+  let currentPrecipData = precipData.get("2018-01");
+  let currentSoilmData = soilmData.get("2018-01");
 
   // time-series time change
   const dispatchString = "timeChange";
@@ -23,12 +23,17 @@
   const timeSeriesSlider = timeSlider().timeDispatcher(d3.dispatch(dispatchString))();
   const oniLineChart = oni();
   const sstMapChart = sstMap()(geometricLandData, currentSSTData);
-  mrbMap("precip", geometricLandData, currentPrecipData, currentSoilmData)
+  const mrbMapChart = mrbMap()(geometricLandData, currentPrecipData, currentSoilmData);
 
   // dispatch time chage events
   timeSeriesSlider.timeDispatcher().on(dispatchString, timeValue => {
     const newDate = valueToDate(timeValue);
+
     currentSSTData = sstData.get(newDate);
     sstMapChart.updateTime(currentSSTData);
+
+    currentPrecipData = precipData.get(newDate);
+    currentSoilmData = soilmData.get(newDate);
+    mrbMapChart.updateTime(currentPrecipData, currentSoilmData);
   })
 })();

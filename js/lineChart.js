@@ -77,11 +77,12 @@ function updateLC(data, condition) {
         .duration(1000)
         .call(yAxis);
 
+
     // Create a update selection: bind to the new data
     var u = svg.selectAll(".lineTest")
         .data([data], function(d){ return d.date });
 
-    // Updata the line
+    // Update the line
     u.enter()
         .append("path")
         .attr("class","lineTest")
@@ -94,6 +95,51 @@ function updateLC(data, condition) {
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 2.5)
+
+    //defines the points
+    let p = svg.selectAll("circle")
+        .data(data);
+
+    // create tooltip div
+    let div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("border-width", "5px")
+    .style("border-radius", "7px")
+    
+    //months to use in tool tip
+    var months = ["January", "February","March","April","May","June","July","August","September","October","November","December"];
+
+    //updates the points when new graph is shown 
+    p.enter()
+        .append("circle")
+        .merge(p)
+        .attr("fill", "black")
+        .attr("stroke", "none")
+        .attr("cx", function(d) { return x(Date.parse(d.date)) })
+        .attr("cy", function(d) { return y(parseFloat(d.var)) })
+        .attr("r", 3.5)
+        .on("click", function (event, d) {
+            div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            if (condition != "discharge") {
+                tooltipNum =  parseFloat(d.var).toFixed(3);
+            }
+            else {
+                tooltipNum =  parseFloat(d.var);
+            }
+            div.html(months[new Date(d.date).getMonth()] + " " 
+                + new Date(d.date).getUTCFullYear() + "<br/>" + condition + ": " +
+                tooltipNum)
+              .style("left", (event.pageX) + "px")
+              .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(4000)		
+                .style("opacity", 0);	
+          });
 }
 
 // At the beginning, I run the update function on the first dataset:
