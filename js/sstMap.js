@@ -1,9 +1,8 @@
 // function to create sst map
 function sstMap() {
 
-  var width  = 480;
-  var height = 250;
-  var margin = {
+  const width  = 480, height = 250;
+  const margin = {
       top: 50,
       bottom: 50,
       left: 200,
