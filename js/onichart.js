@@ -7,10 +7,10 @@ function oni() {
         let minOni = d3.min(data, function(d){return parseFloat(d.oni)});
     
         var width  = 550;
-        var height = 400;
+        var height = 310;
         var margin = {
-            top: 50,
-            bottom: 50,
+            top: 10,
+            bottom: 80,
             left: 80,
             right: 30
         };
@@ -39,8 +39,8 @@ function oni() {
         // x-axis label
         svg.append("text")             
         .attr("transform",
-                "translate(" + ((width/2) - margin.right) + " ," + 
-                (height - margin.bottom - 7) + ")")
+                "translate(" + ((width/2) - margin.right + 22) + " ," + 
+                (height - margin.bottom + 30) + ")")
         .style("text-anchor", "middle")
         .text("Date");
         
@@ -59,14 +59,6 @@ function oni() {
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Oceanic Niño Index (ONI)");
-
-        //title
-        svg.append("text")
-            .attr("x", (width/2 - margin.right))             
-            .attr("y", 0 - (margin.top / 2) + 5)
-            .attr("text-anchor", "middle")  
-            .style("font-size", "24px")   
-            .text("ONI Chart");
 
         let	area = d3.area()	
             .x(d => xScale(Date.parse(d.date)))
@@ -97,17 +89,17 @@ function oni() {
 
         //adding text to show el nino 
         svg.append("text")
-            .attr('font-size', '1.5em')
-            .attr('y', 110)
-            .attr('x', 253)
+            .attr('font-size', '0.8em')
+            .attr('y', 80)
+            .attr('x', 255)
             .attr('fill', "white")
             .text("El Niño");
 
         //adding text to show la nina
         svg.append("text")
-            .attr('font-size', '1.3em')
-            .attr('y', 195)
-            .attr('x', 3)
+            .attr('font-size', '0.8em')
+            .attr('y', 150)
+            .attr('x', 8)
             .attr('fill', "white")
             .text("La Niña");
 

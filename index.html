@@ -52,21 +52,27 @@
     
     <h1>Abstract</h1>
     
-    <p>The El Niño Southern-Oscillation (ENSO) has long been known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen across the globe, with notable effects around the Mississippi River Basin (MRB). In 2017, Muñoz and Dee found that the warm phase of ENSO preconditions the MRB to flood vulnerability [1]. Given the economic costs associated with natural disasters in this heavily populated region, understanding the connection between ENSO and flooding is of paramount importance—visualizing this connection is the focus of this paper.</p>
+    <p>The El Niño Southern-Oscillation (ENSO) is a Pacific Ocean sea-surface temperature (SST) cycle that has long been known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen across the globe, with notable effects around the Mississippi River Basin (MRB). This project allows users to explore the connections between ENSO and weather conditions in the MRB. Users can:</p>
+    <ul>
+      <li>select radio buttons (top left) to view MRB precipitation, soil moisture, or river discharge</li>
+      <li>move a slider (middle left) to view Pacific Ocean SST and its relation to MRB weather conditions over time</li>
+      <li>click to select a given latitude/longitude point in the maps to get specific variable values</li>
+    </ul>
 
     <h1>Visualization</h1>
   </div>
   
   <!-- Radio buttons and legend-->
-  <div class='util-holder'>
-    <div class = 'radioButton-holder' id='radioButtons'>
+  <div class='vis-holder'>
+    <div class = 'leftItem-holder' id='radioButtons'>
       <input type="radio" name="gender" value="precip" checked onclick="updateLC(precipLCData, 'precip')">Precipitation
       <input type="radio" name="gender" value="soilm" onclick="updateLC(soilmLCData, 'soilm')">Soil Moisture
       <input type="radio" name="gender" value="discharge" onclick="updateLC(dischargeLCData, 'discharge')">River Discharge
     </div>
-    <div class='legend-holder' id="legendDiv"></div> 
+    <div class='rightItem-holder' id="legendDiv_precip"></div> 
+    <div style="display: flex; justify-content: flex-end" class='legend-holder' id="legendDiv_soilm"></div> 
   </div>
-
+   
   <!-- Top visualizations (MRB) -->
   <div class='vis-holder'>
     <div id='linechart'></div>
@@ -75,13 +81,13 @@
   </div>
 
   <!-- Slider and legend  -->
-  <div class='util-holder2'>
-    <div class='slider-holder' id='slider'></div>
-    <div class='legend-holder' id="legendDiv2"></div> 
+  <div class='vis-holder'>
+    <div class = 'leftItem-holder' id='slider'></div>
+    <div class = 'rightItem-holder' style="display: flex; justify-content: flex-end" id="legendDiv_sst"></div>
   </div>
 
   <!-- Bottom visualizations (Pacific Ocean) -->
-  <div class='vis-holder2'>
+  <div class='vis-holder'>
     <div id='onichart'></div>
     <h3 style="text-align:center;"><br/> <br/> <br/> <br/>Pacific <br/> Ocean</h3>
     <div id='sstMap'></div>

@@ -9,7 +9,7 @@ function mrbMap() {
         .interpolator(d3.interpolateBlues);
     const soilmColor = d3.scaleSequential()
         .domain([0, 0.5])
-        .interpolator(d3.interpolateBlues);
+        .interpolator(d3.interpolateOranges);
 
     // create projection 
     const projection = d3.geoEquirectangular().scale(700).center([-98.57, 42]);
@@ -25,7 +25,7 @@ function mrbMap() {
         const width = 650, height = 225;
         const margin = {
             top: 50,
-            bottom: 50,
+            bottom: 0,
             left: 0,
             right: 0
         };
@@ -63,15 +63,15 @@ function mrbMap() {
             title: 'Precipitation (cm)'
         });
         const soilmLegend = legend({
-            color: d3.scaleSequential([0, 0.5], d3.interpolateBlues),
+            color: d3.scaleSequential([0, 0.5], d3.interpolateOranges),
             title: 'Soil Moisture (water/soil ratio)'
         });
 
-        d3.select("#legendDiv")
+        d3.select("#legendDiv_precip")
             .node()
             .appendChild(precipLegend)
 
-        d3.select("#legendDiv")
+        d3.select("#legendDiv_soilm")
             .node()
             .appendChild(soilmLegend)
 
@@ -112,14 +112,6 @@ function mrbMap() {
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 28) + "px");
             });
-
-        // allow zooming and panning
-        const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
-        svg.call(zoom);
-
-        function zoomed(event, d) {
-            g.attr("transform", event.transform);
-        }
 
         // update the map as radio buttons are selected
         function updateMap(condition) {

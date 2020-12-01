@@ -3,8 +3,8 @@ function timeSlider() {
     let dispatcher;
 
     function slider() {
-        const width = 400,
-            height = 120
+        const width = 600,
+            height = 10
         // margin = {
         //     top: 20,
         //     right: 50,
@@ -17,7 +17,7 @@ function timeSlider() {
         }));
 
         const svg = d3
-            .select("#slider").append("svg").attr("width", 600).attr("height", 200);
+            .select("#slider").append("svg").attr("width", 600).attr("height", 100);
 
         const padding = 0.1;
 

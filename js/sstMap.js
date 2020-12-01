@@ -1,18 +1,18 @@
 // function to create sst map
 function sstMap() {
 
-  const width = 480, height = 250;
+  const width = 400, height = 250;
   const margin = {
-    top: 50,
-    bottom: 50,
-    left: 200,
+    top: 0,
+    bottom: 80,
+    left: 280,
     right: 0
   };
 
   // color scale function
   const myColor = d3.scaleSequential()
     .domain([-2, 32])
-    .interpolator(d3.interpolateBlues);
+    .interpolator(d3.interpolateReds);
 
   function chart(geographicData, sstData) {
     // create svg for later appending
@@ -64,20 +64,12 @@ function sstMap() {
     // create and draw legend
     // based on conventions of ...
     const myLegend = legend({
-      color: d3.scaleSequential([-2, 32], d3.interpolateBlues),
+      color: d3.scaleSequential([-2, 32], d3.interpolateReds),
       title: "Sea Surface Temperature (°C)"
     });
-    d3.select("#legendDiv2")
+    d3.select("#legendDiv_sst")
       .node()
       .appendChild(myLegend)
-
-    // allow zooming and panning
-    const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
-    svg.call(zoom);
-
-    function zoomed(event, d) {
-      g.attr("transform", event.transform);
-    }
 
     return chart;
   }

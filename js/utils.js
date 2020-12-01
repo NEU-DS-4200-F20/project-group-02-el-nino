@@ -29,7 +29,7 @@ function ramp(color, n = 256) {
     color,
     title,
     tickSize = 6,
-    width = 320, 
+    width = 250, 
     height = 44 + tickSize,
     marginTop = 18,
     marginRight = 0,

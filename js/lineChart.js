@@ -2,7 +2,7 @@
 var width  = 550;
 var height = 250;
 var margin = {
-    top: 50,
+    top: 10,
     bottom: 50,
     left: 80,
     right: 10
@@ -62,7 +62,7 @@ function updateLC(data, condition) {
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Average MRB " + varName);
+        .text("Avg MRB " + varName);
 
     // set x-axis domain and transition
     x.domain([d3.min(data, function(d) { return d.date }), d3.max(data, function(d) { return d.date }) ]);
@@ -114,6 +114,8 @@ function updateLC(data, condition) {
     p.enter()
         .append("circle")
         .merge(p)
+        .transition()
+        .duration(1000)
         .attr("fill", "black")
         .attr("stroke", "none")
         .attr("cx", function(d) { return x(Date.parse(d.date)) })
