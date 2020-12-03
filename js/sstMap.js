@@ -79,7 +79,7 @@ function sstMap() {
     const rects = d3.select('#sstPts').selectAll('rect');
     rects
       .data(timeData)
-      .transition().duration(750).attr("fill", d => myColor(d.sst))
+      .transition().duration(100).attr("fill", d => myColor(d.sst))
   }
 
   return chart;

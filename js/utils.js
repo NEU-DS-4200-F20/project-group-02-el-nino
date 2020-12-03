@@ -9,6 +9,16 @@ const valueToDate = value => {
     return date;
 }
 
+const valueToUIDate = value => {
+  let date = "";
+    if (!(value < 1) && !(value > 24) && !(value % 2 == 0)) {
+        const year = value => value < 13 ? "2018" : "2019";
+        const month = value => (((value - 1) % 12) + 1).toString().padStart(2, "0");
+        date = date + month(value) + "/" + year(value);
+    }
+    return date;
+}
+
 // create a legend based on given color, title
 // based on https://codepen.io/ubermario/pen/MWKpyJd?editors=1100
 function ramp(color, n = 256) {

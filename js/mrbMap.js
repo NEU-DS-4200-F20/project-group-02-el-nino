@@ -157,7 +157,7 @@ function mrbMap() {
         const soilmRects = d3.select('#soilmPts').selectAll('rect')
         soilmRects.data
             (timeSoilmData).exit().remove();
-        soilmRects.transition().duration(750).attr("fill", d => soilmColor(d.var))
+        soilmRects.transition().duration(100).attr("fill", d => soilmColor(d.var))
     }
 
     return chart;
