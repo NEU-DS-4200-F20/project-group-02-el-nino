@@ -30,7 +30,8 @@ function oni() {
             .domain([minOni, maxOni])
             .range([height - margin.bottom - margin.top, 0]);
     
-        let xAxis = d3.axisBottom(xScale);
+        let xAxis = d3.axisBottom(xScale)
+        .tickFormat(d3.timeFormat("%m/%Y"))
         svg.append('g')
             .attr('class', 'x axis')
             .attr('transform', 'translate(0, ' + (height - margin.bottom - margin.top) + ')')

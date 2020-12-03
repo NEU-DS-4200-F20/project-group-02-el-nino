@@ -19,7 +19,9 @@ var svg = d3.select("#linechart")
 // initialize and append x-axis
 var x = d3.scaleTime()
     .range([0, width]);
-var xAxis = d3.axisBottom().scale(x);
+var xAxis = d3.axisBottom()
+    .scale(x)
+    .tickFormat(d3.timeFormat("%m/%Y"))
 svg.append("g")
     .attr("class","myXaxis")
     .attr("transform", "translate(0," + height + ")")
