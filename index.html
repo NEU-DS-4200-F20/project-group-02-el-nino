@@ -2,12 +2,13 @@
 <html lang='en'>
 
 <!-- Metadata -->
+
 <head>
   <meta charset='utf-8'>
 
   <!-- Title -->
   <title>Project Team 02: El Niño, DS 4200 F20</title>
-  
+
   <!-- CSS Styling -->
   <link rel='stylesheet' href='style.css'>
 
@@ -33,130 +34,152 @@
 </head>
 
 <!-- Main page content -->
+
 <body>
 
   <!-- GitHub repo URL -->
-  <span id='forkongithub'><a href='https://github.com/NEU-DS-4200-F20/project-group-02-el-nino'>Fork me on GitHub</a></span>
+  <span id='forkongithub'><a href='https://github.com/NEU-DS-4200-F20/project-group-02-el-nino'>Fork me on
+      GitHub</a></span>
 
   <!-- Writeup -->
   <div class='content-column'>
-   <h1>Project Team 02: El Niño, DS4200 F20</h1>
-    
+    <h1>Project Team 02: El Niño, DS4200 F20</h1>
+
     <p><strong>Logan Jones</strong>, <strong>Alexander Schad</strong>, <strong>Sina Soltanieh</strong></p>
     <p>Service-Learning Course Project as part of
-	    <a href='https://canvas.instructure.com/courses/1781732'>DS 4200 F20: Information Visualization</a>, 
-	    taught by <a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>, 
-	    <a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>, 
+      <a href='https://canvas.instructure.com/courses/1781732'>DS 4200 F20: Information Visualization</a>,
+      taught by <a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>,
+      <a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>,
       <a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.
     </p>
-    
+
     <h1>Abstract</h1>
-    
-    <p>The El Niño Southern-Oscillation (ENSO) is a Pacific Ocean sea-surface temperature (SST) cycle that has long been known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen across the globe, with notable effects around the Mississippi River Basin (MRB). This project allows users to explore the connections between ENSO and weather conditions in the MRB. Users can:</p>
+
+    <p>The El Niño Southern-Oscillation (ENSO) is a Pacific Ocean sea-surface temperature (SST) cycle that has long been
+      known for its strong influence on global weather. Although localized to the Pacific Ocean, its effects can be seen
+      across the globe, with notable effects around the Mississippi River Basin (MRB). This project allows users to
+      explore the connections between ENSO and weather conditions in the MRB. Users can:</p>
     <ul>
       <li>select radio buttons (top left) to view MRB precipitation, soil moisture, or river discharge</li>
-      <li>move a slider (middle left) to view Pacific Ocean SST and its relation to MRB weather conditions over time</li>
+      <li>move a slider (middle left) to view Pacific Ocean SST and its relation to MRB weather conditions over time
+      </li>
       <li>click to select a given latitude/longitude point in the maps to get specific variable values</li>
     </ul>
 
     <h1>Visualization</h1>
   </div>
-  
+
   <!-- Radio buttons and legend-->
   <div class='vis-holder'>
-    <div class = 'leftItem-holder' id='radioButtons'>
+    <div class='leftItem-holder' id='radioButtons'>
       <input type="radio" name="gender" value="precip" checked onclick="updateLC(precipLCData, 'precip')">Precipitation
       <input type="radio" name="gender" value="soilm" onclick="updateLC(soilmLCData, 'soilm')">Soil Moisture
-      <input type="radio" name="gender" value="discharge" onclick="updateLC(dischargeLCData, 'discharge')">River Discharge
+      <input type="radio" name="gender" value="discharge" onclick="updateLC(dischargeLCData, 'discharge')">River
+      Discharge
     </div>
-    <div class='rightItem-holder' id="legendDiv_precip"></div> 
-    <div style="display: flex; justify-content: flex-end" class='legend-holder' id="legendDiv_soilm"></div> 
+    <div class='rightItem-holder' id="legendDiv_precip"></div>
+    <div style="display: flex; justify-content: flex-end" class='legend-holder' id="legendDiv_soilm"></div>
   </div>
-   
+
   <!-- Top visualizations (MRB) -->
   <div class='vis-holder'>
     <div id='linechart'></div>
-    <h3 style="text-align:center;"><br/> <br/> <br/> <br/>Mississippi <br/> River <br/> Basin</h3>
+    <h3 style="text-align:center;"><br /> <br /> <br /> <br />Mississippi <br /> River <br /> Basin</h3>
     <div id='mrbMap'></div>
   </div>
 
   <!-- Slider and legend  -->
   <div class='vis-holder'>
-    <div class = 'leftItem-holder' id='slider'></div>
-    <div class = 'rightItem-holder' style="display: flex; justify-content: flex-end" id="legendDiv_sst"></div>
+    <div class='leftItem-holder' id='slider'></div>
+    <div class='rightItem-holder' style="display: flex; justify-content: flex-end" id="legendDiv_sst"></div>
   </div>
 
   <!-- Bottom visualizations (Pacific Ocean) -->
   <div class='vis-holder'>
     <div id='onichart'></div>
-    <h3 style="text-align:center;"><br/> <br/> <br/> <br/>Pacific <br/> Ocean</h3>
+    <h3 style="text-align:center;"><br /> <br /> <br /> <br />Pacific <br /> Ocean</h3>
     <div id='sstMap'></div>
   </div>
-  
+
   <!-- Further writeup -->
-  <div class = 'content-column'>
+  <div class='content-column'>
 
     <h1>Demo Video</h1>
-    
-    <p>Embed an MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</p>
-    
+
     <video controls width='100%'>
-      <source src='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4' type='video/mp4'>
+      <source src='video.mp4' type='video/mp4'>
       <p>Your browser doesn't support HTML5 video. Here is
-       a <a href='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4'>link to the video</a> instead.</p>
+        a <a href='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4'>link to the video</a>
+        instead.</p>
     </video>
 
     <h1>Visualization explanation</h1>
-    
-    <p>Replace with a brief explanation (can be copied from the paper) and linked presentation slides.</p>
-    
+
+    <p><a
+        href='https://docs.google.com/presentation/d/1AjUeLvcyRKQZfYS-8KuY7L6e30olbNDRiCehrbtWT8M/edit#slide=id.p'>Presentation
+        Slides</a></p>
+
+    <p>The visualization contains four views, one in each quadrant with a slider bar in between. The top left features
+      the line graph, the bottom left is the ONI chart, the top right is the MRB map,
+      while the bottom left is the SST. In the ONI chart, red represents El Niño (warm waters) while blue represents La
+      Niña (cooler waters). In general, low-saturated colors were chosen to
+      be easier on the eyes. The main method to interact with this visualization,
+      other than details on demand for points in all four views, is through the time-series slider bar. Each
+      discrete tick
+      on the slider bar represents a month between 2018 and 2019. Moving and releasing the slider bar
+      updates the monthly averages for points on the map views. Above the line chart, radio buttons make it easy for
+      users
+      to switch between soil moisture, precipitation, and discharge data, which updates both the line chart and the
+      Mississippi River Basin map views to display data for the selected measure. </p>
+
     <h1>Acknowledgments</h1>
 
     <ul>
       <li><a href='https://d3js.org/'>
-        D3: Data-Driven Documents</a>
+          D3: Data-Driven Documents</a>
         by Mike Bostock is used for manipulating the DOM to create visualizations.
       </li>
       <li><a href='https://codepo8.github.io/css-fork-on-github-ribbon/#'>
-        Pure CSS responsive 'Fork me on GitHub' ribbon</a>
+          Pure CSS responsive 'Fork me on GitHub' ribbon</a>
         by Chris Heilmann is used to create the banner that links back to the source code repository.
       </li>
-      <li>Samuel Muñoz and Sylvia Dee. El Niño increases the risk of lower Mississippi River flooding. Sci Rep 7, 1772 (2017). <a href="https://doi.org/10.1038/s41598-017-01919-6">doi: 10.1038/s41598-017-01919-6</a></li>
+      <li>Samuel Muñoz and Sylvia Dee. El Niño increases the risk of lower Mississippi River flooding. Sci Rep 7, 1772
+        (2017). <a href="https://doi.org/10.1038/s41598-017-01919-6">doi: 10.1038/s41598-017-01919-6</a></li>
       <li><a href='https://observablehq.com/@d3/web-mercator-tiles'>
-        Web Mercator Tiles</a>
+          Web Mercator Tiles</a>
         by Mike Bostock is used to create the map using topojson.
       </li>
       <li><a href='https://bl.ocks.org/HarryStevens/6eb89487fc99ad016723b901cbd57fde'>
-        Gradient Legend</a>
+          Gradient Legend</a>
         by Harry Stevens is used to guide color gradient legend creation.
       </li>
       <li><a href='https://bl.ocks.org/d3noob/4433087'>
-        Area Gradient fill</a>
-        by d3noob is used to help creating a gradient area chart. 
+          Area Gradient fill</a>
+        by d3noob is used to help creating a gradient area chart.
       </li>
       <li><a href='https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e'>
-        Axis Labels</a>
-        by d3noob is used to help add axis labels to the linecharts. 
+          Axis Labels</a>
+        by d3noob is used to help add axis labels to the linecharts.
       </li>
       <li><a href='http://www.d3noob.org/2013/01/adding-title-to-your-d3js-graph.html'>
-        Adding a title to your d3.js graph</a>
-        by d3noob is used to help add a title to the linecharts. 
+          Adding a title to your d3.js graph</a>
+        by d3noob is used to help add a title to the linecharts.
       </li>
       <li><a href='https://observablehq.com/@d3/d3v6-migration-guide#event_zoom'>
-        D3 6.0 migration guide</a>
+          D3 6.0 migration guide</a>
         by Fil is used to identify d3v6 functions for map zooming and panning.
       </li>
       <li><a href='https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518'>
-        d3-simple-slider</a>
+          d3-simple-slider</a>
         by John Walley is used to create discrete event sliders.
       </li>
       <li><a href='https://codepen.io/ubermario/pen/MWKpyJd?editors=1100'>
-        Legend from Observable</a>
+          Legend from Observable</a>
         by UberMario is used to create legends.
       </li>
     </ul>
   </div>
-  
+
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src='js/timeSlider.js'></script>
   <script src='js/sstMap.js'></script>
@@ -166,4 +189,5 @@
   <script src='js/onichart.js'></script>
 
 </body>
+
 </html>
